@@ -1,8 +1,8 @@
 import requests
-uid = 'YuYxypSNiNU7nNQNwKc1JK3mEvx1'
-api_key = "AIzaSyDmLIX31LAFvb1hefXs-e6Baspcfg6ran8"
+# uid = 'YuYxypSNiNU7nNQNwKc1JK3mEvx1'
+# api_key = "AIzaSyDmLIX31LAFvb1hefXs-e6Baspcfg6ran8"
 
-endpoint = 'https://udctf-fire-default-rtdb.firebaseio.com/oracle/'
+# endpoint = 'https://udctf-fire-default-rtdb.firebaseio.com/oracle/'
 
 flag = ""
 x=0
