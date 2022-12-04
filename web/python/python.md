@@ -66,7 +66,7 @@ print(gen_payload())
 
 Instead of `subprocess.check_output`, we can also use `os.popen().read()`, but note that on Windows, there is an issue serializing the os module which becomes "nt" module for some reason.
 
-## HTTP Parameter Pollution
+## HTTP Parameter Pollution with IDOR Vulnerability
 
 > Example: A flask app which makes an internal API call to a FastAPI app.
 
