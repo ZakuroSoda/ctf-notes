@@ -1,5 +1,7 @@
 # Python
 
+Always look out for `str.replace()` because yes...
+
 ## Format string injection
 
 Format string injection usually occurs when using `.format()`.
@@ -63,3 +65,42 @@ print(gen_payload())
 ```
 
 Instead of `subprocess.check_output`, we can also use `os.popen().read()`, but note that on Windows, there is an issue serializing the os module which becomes "nt" module for some reason.
+
+## HTTP Parameter Pollution
+
+> Example: A flask app which makes an internal API call to a FastAPI app.
+
+```python
+uid = request.args.get("uid")  
+if(uid == str(current_user.user["id"])):   # MOST IMPORTANT CHECK! 
+   # pass the url behind to fastapi
+   fullurl = request.url 
+   path = fullurl.replace(request.url_root, "").replace("fastapi", "")
+   forwardurl = "http://localhost:8000" + path
+   app.logger.debug("Forwarded URL to Fastapi: %s", forwardurl)
+   r = requests.get(forwardurl)
+   if(r.ok):
+       try:
+           j = r.json()
+           msg = j['message']
+           return Response(msg, status=200)
+```
+
+```python
+@app.get("/retrievekey")
+async def hpp(uid: str):
+    r = db.getkey(uid)
+    if(r and r['key']):
+        location = "/securenote/" + r['key']
+        result = 'You will redirect to your secure URL <a href="' + location + '">here</a>'
+        # redirects
+    return {"message": html}
+```
+
+You may think that Insecure Direct Object Reference (IDOR) is not possible, but it is!
+
+Flask kind of "prefers" the first param while FastAPI "prefers" the last one (if you supply two `?uid=` params).
+
+Hence by doing `retrievekey?uid=[i am authorised] &uid=[admin]`, we can access things which we aren't meant to access.
+
+Resource: https://0xgaurang.medium.com/case-study-bypassing-idor-via-parameter-pollution-78f7b3f9f59d
