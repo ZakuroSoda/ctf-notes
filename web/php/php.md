@@ -89,3 +89,16 @@ try{
 ## unserialize()
 
 Similar to Python's 
+
+## PHP Filter Chaining
+
+Basically, if any raw input is passed directly into `file_get_contents()`, there is a possibility that:  
+
+1. Directory Traversal (ofc)
+2. PHP Filter Chaining Attack
+
+The attack works through the [`php://` wrappers](https://www.php.net/manual/en/wrappers.php.php) which allows direct modification to the input stream.
+
+> Example Challenge: Paywall idekCTF 2022 Web
+
+Refer to https://www.synacktiv.com/en/publications/php-filters-chain-what-is-it-and-how-to-use-it.html and https://github.com/synacktiv/php_filter_chain_generator.git
