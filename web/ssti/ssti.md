@@ -1,5 +1,7 @@
 # Server-side Template Injection
 
+Always be on the lookout for any `render_template_string()`!
+
 ## Jinja
 
 ### Basic injection

@@ -23,6 +23,10 @@ You can also url-encode or double url-encode to bypass some filters.
 If the application checks for file extension:  
 `?page=../../../etc/passwd%00.png`
 
+### Sandboxed (Trapped in a Safe-Dir)
+
+In flask: If you are confirm chop-stamp really sandboxed, then it may be possible to try to `INSERT INTO` a database (which you CAN READ through LFI) with `{{''.__class__.__mro__}}` etc.
+
 ## Python's urllib
 urllib.request.urlopen() has a quirky built-in functionality to automatically parse `<URL:http://example.com>` and `<http://example.com>` to `http://example.com`. 
 
