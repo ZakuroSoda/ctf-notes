@@ -119,3 +119,10 @@ Flask kind of "prefers" the first param while FastAPI "prefers" the last one (if
 Hence by doing `retrievekey?uid=[i am authorised] &uid=[admin]`, we can access things which we aren't meant to access.
 
 Resource: https://0xgaurang.medium.com/case-study-bypassing-idor-via-parameter-pollution-78f7b3f9f59d
+
+## Flask Session Token
+
+https://github.com/Paradoxis/Flask-Unsign  
+
+Flask session tokens can be cracked, then resigned, something like JWT.  
+> flask session tokens will always seem like the header is the body and the rest junk in jwt.io

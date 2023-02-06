@@ -56,5 +56,13 @@ What this does is to change the relative root url of the script tag, so the scri
 
 In addition, you can also take advantage of this. Certain characters (like ß and ﬃ) count as a single character, but become multiple characters when uppercased (SS and FFI). This is useful in very limited contexts, such as when the length of the initial string is used to iterate through the modifed (uppercased) string later on. By spamming the special characters at the start, you can "push" your XSS payload back, so any filters in place doesn't detect/remove your payload. Refer to: [blazing fast](https://smitop.com/p/dctf22-blazingfast/) (TODO: find characters that do the same for lowercasing)
 
+## nonce with CSP filter
+
+The nonce of a javascript tag is to provide security. For example, your `<script nonce='abc'>` will only execute if the correct nonce is returned in the response CSP headers.  
+
+In a case where your input determines the CSP nonce, and the hash algorithm is simple enough, you can brute force your input to have dummy bytes which will result in a correct nonce. Read the below for more:  
+
+https://github.com/bediger4000/crc32-file-collision-generator
+
 ## Relevant tools
 `/CTF/tools/Web/XSS/xssstrike`
