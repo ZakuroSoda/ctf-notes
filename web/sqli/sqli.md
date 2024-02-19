@@ -83,6 +83,7 @@ Sometimes, we want to extract more columns than the injection allows. We can byp
 | ------- | ------------------------------------------ |
 | MySQL   | ` or substring(password, x, 1) = 'a'; -- ` |
 | sqlite  | ` or substr(password, x, 1) = 'a'; -- `    |
+| PgSQL   | ` or substring(password, x, 1) = 'a'; -- ` |
 
 Manually bruteforcing each character can take quite long. We can either use Burp Intruder to leak the values, or script a custom Python implementation if Burp Intruder can't do what we want. For Burp Intruder, we'll usually need to use Cluster Bomb with at least 3 payloads: 2 digits for x, and 1 alphanumeric + symbols for char.
 
@@ -148,6 +149,10 @@ You can use LIKE, IN or NOT IN instead
 	- WHERE pw LIKE '' (can use % wildcard as a replacement for substring)
 - IN / NOT IN
 	- WHERE substring(pw, 1, 1) IN ('a')
+- SIMILAR TO (pgsql)
+	- Regex works: 'abc' SIMILAR TO 'a__'
+	- Flag Format: no number can follow a open curly brace, must use hex, eg abCTF{5h1s_is_flag} must use \x35
+ 	- This could be also used to bypass substr blacklist
 
 ### SUBSTR blacklisted
 
