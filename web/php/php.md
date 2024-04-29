@@ -12,6 +12,11 @@
 - strcmp(array(), 'asdf') == NULL == 0
 - To provide array in GET/POST, do password[]=a
 
+```
+username=admin
+password[]=%22%22
+```
+
 ## Injecting with different types
 
 - take note of == vs ===

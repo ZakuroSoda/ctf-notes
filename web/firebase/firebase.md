@@ -58,7 +58,6 @@ import("https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js").then((fireba
     import("https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js").then((firestore) => {
     const db = firestore.getFirestore(app);
     firestore.getDoc(firestore.doc(db, `/flag/flag`)).then((a) => {console.log(a.data())})
-    
     })
 })
 ```
