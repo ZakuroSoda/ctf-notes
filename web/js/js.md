@@ -92,3 +92,12 @@ If we can pass in functions, simply target an attribute function that is being c
 ### Other stuff
 
 Every attribute of window is a global variable (and vice versa!) This means that asdf == window.asdf, window.name == name, window.location == location etc. If we are able to set these variables, we can possibly control these values to arbitrary stuff, enabling XSS etc.
+
+### ExpressJS Quirks
+
+- If you have `const arg = req.query.arg;`, note that `arg` is not necessarily forced to be a `string`.
+- If you pass in `?arg[a]=1`, `arg` will be an dictionary object having key `a`.
+- Additionally, if you pass in `?arg=1&arg=2`, `arg` will be an array of `[1, 2]`.
+- Combining the above two points:
+  - `?arg[a]=1&arg[order]=flag`: `{a:'1',order:'flag'}`
+  - `?arg[order]=flag&arg[order]=flag`:`{order:['flag','flag']}`
