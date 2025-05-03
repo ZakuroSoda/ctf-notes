@@ -87,6 +87,23 @@ Sometimes, we want to extract more columns than the injection allows. We can byp
 
 Manually bruteforcing each character can take quite long. We can either use Burp Intruder to leak the values, or script a custom Python implementation if Burp Intruder can't do what we want. For Burp Intruder, we'll usually need to use Cluster Bomb with at least 3 payloads: 2 digits for x, and 1 alphanumeric + symbols for char.
 
+### Blind SQLi in ORDER BY
+https://portswigger.net/support/sql-injection-in-the-query-structure
+
+```sql
+SELECT ... FROM gpus WHERE name LIKE ? AND name != 'RGB 6090'
+ORDER BY 'INSERT STRING HERE' ASC
+LIMIT ? OFFSET ?;
+```
+
+In the rare case where all input is escaped except for the ORDER BY clause, we cannot use UNION. This is because the UNION clause must come BEFORE the ORDER BY clause. (i.e. the sql engine wants to know how many rows to find, only then can it sort them).
+
+```sql
+(CASE WHEN (SELECT substr(column_name,POSITION,1) FROM gpus where name = 'RGB 6090' LIMIT 1) = 'CHARTOTEST' THEN col1 ELSE col2 END)
+```
+
+Then we can observe how the output is ordered. If the output is ordered in the way for the true case, we know that the char is correct.
+
 ### Blind SQLi in different table
 To change the table queried, simply put a SELECT statement in place of the string.
 
